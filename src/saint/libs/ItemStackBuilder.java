@@ -55,22 +55,6 @@ public class ItemStackBuilder {
         return setMeta(meta -> meta.setLore(lore));
     }
 
-    public ItemStackBuilder texture(String target) {
-         return setMeta(meta -> {
-            final SkullMeta skullMeta = (SkullMeta) meta;
-
-            final GameProfile gameProfile = new GameProfile(Bukkit.getOfflinePlayer(target).getUniqueId(), null);
-            gameProfile.getProperties().put("textures", new Property("textures", target));
-
-            try {
-                Field field = skullMeta.getClass().getDeclaredField("profile");
-                field.setAccessible(true);
-                field.set(skullMeta, gameProfile);
-            } catch (Exception e) {
-            }
-        });
-    }
-
     public ItemStackBuilder head(OfflinePlayer player) {
         return setMeta(meta -> ((SkullMeta) meta).setOwner(player.getName()));
     }
